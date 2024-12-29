@@ -53,6 +53,8 @@ def grouping_by_multiple_columns(dataset):
 def test_method(dataset):
     var = dataset[dataset['Year'] == 1989]
     print(var[var['Sex'] == 'M'])
+    unique = dataset['Name'].unique()
+    print(unique)
 
 
 '''
@@ -115,4 +117,4 @@ if __name__ == "__main__":
     #group_by_and_max(baby)
     #group_by_and_min(baby)
     #custom_aggregate(baby)
-    pivoting_data_frame(baby)
+    #pivoting_data_frame(baby)
