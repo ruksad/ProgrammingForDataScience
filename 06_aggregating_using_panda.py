@@ -51,7 +51,7 @@ def grouping_by_multiple_columns(dataset):
 
 
 def test_method(dataset):
-    var = dataset[dataset['Year'] == 1882]
+    var = dataset[dataset['Year'] == 1989]
     print(var[var['Sex'] == 'M'])
 
 
@@ -87,6 +87,24 @@ def count_unique(counts):
     return len(counts.unique())
 
 
+'''
+pivote the sex index to column using pd.pivot_table()
+'''
+
+
+def pivoting_data_frame(dataset):
+    group_by_year_and_sex = (dataset.groupby(['Year', 'Sex'])['Count'].sum())
+    print("Year and sex group by will return pd.series object: ")
+    print(group_by_year_and_sex.to_frame().reset_index())
+    table = pd.pivot_table(dataset,
+                           index='Year',  # column to turn into new index
+                           columns='Sex',  # Column to turn into new columns
+                           values='Count',  # Column to aggregate the values
+                           aggfunc="sum")  # aggregate function
+    print("Pivoted table: ")
+    print(table)
+
+
 if __name__ == "__main__":
     baby = pd.read_csv('sources/babynames.csv')
     #group_by_and_sum(baby)
@@ -96,4 +114,5 @@ if __name__ == "__main__":
     #grouping_by_multiple_columns(baby)
     #group_by_and_max(baby)
     #group_by_and_min(baby)
-    custom_aggregate(baby)
+    #custom_aggregate(baby)
+    pivoting_data_frame(baby)
