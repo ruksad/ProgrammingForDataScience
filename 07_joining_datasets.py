@@ -21,7 +21,7 @@ def right_join(dataset1, dataset2):
     print(merge)
 
 
-''' join keeps rows from both the tables even when there are no matching rows'''
+''' join keeps rows from both the tables even when there are no matching rows. .merge will return pandas.DataFrame object'''
 
 
 def out_join(dataset1, dataset2):
