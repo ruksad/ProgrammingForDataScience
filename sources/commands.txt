@@ -1,0 +1,5 @@
+1. ls -ltrh  # lists all the file in ascending of file -h lists the size of file in KiB or MiB
+2. wc # word count filename # gives lines-1, words and chars in a file
+3. du -Lsh # -s to show files and folders -h to display KIB MIB size
+4. head -4 source/commands.txt # check first 4 lines of the file
+5. file -i sources/* # check encoding of file
