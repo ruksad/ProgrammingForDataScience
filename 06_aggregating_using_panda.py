@@ -117,4 +117,4 @@ if __name__ == "__main__":
     #group_by_and_max(baby)
     #group_by_and_min(baby)
     #custom_aggregate(baby)
-    #pivoting_data_frame(baby)
+    pivoting_data_frame(baby)

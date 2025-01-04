@@ -3,3 +3,6 @@
 3. du -Lsh # -s to show files and folders -h to display KIB MIB size
 4. head -4 source/commands.txt # check first 4 lines of the file
 5. file -i sources/* # check encoding of file
+6. run mysql in docker:- docker run --name test-mysql -e MYSQL_ROOT_PASSWORD=strong_password -d mysql
+docker run -it -d --name mysql-container -p 3306:3306 -e MYSQL_ROOT_PASSWORD=springBankPassword --restart always -v mysql_data_container:/var/lib/mysql mysql:latest
+7. APAR ID 507671017467

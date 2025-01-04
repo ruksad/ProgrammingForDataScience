@@ -2,11 +2,13 @@ from pathlib import Path
 import os
 import pandas as pd
 import chardet
+from timeit_util import time_decorator
 
-
+@time_decorator
 def examine_file(param):
     line = "{:<20}{}".format
     co2_file_path = Path(param)
+    print(co2_file_path.stat())
     features_ = [os.path.getsize(co2_file_path), chardet.detect(co2_file_path.read_bytes())['encoding']]
     print(line('features:', features_))
 
@@ -22,7 +24,12 @@ def examine_file(param):
     #print(dataframe.describe())
 
     print(dataframe.groupby('Mo')['Mo'].size())
-    print(dataframe['Mo'].value_counts().reindex(range(1, 12)).tolist())  # alternative dataframe.groupby(['Mo'])['Mo'].size()
+    print(dataframe['Mo'].value_counts().reindex(
+        range(1, 12)).tolist())  # alternative dataframe.groupby(['Mo'])['Mo'].size()
+
+    line2 = '{:}\n{}\n{}'.format
+    avg_ = dataframe[dataframe['Avg'] < 0]
+    print(line2('Co2 average dataframe below 0', avg_,avg_.__class__.__name__))
 
 
 def read_from_text_into_dataframe(filename):
