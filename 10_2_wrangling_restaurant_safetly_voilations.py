@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 import chardet
-import pandas
 import pandas as pd
 
 from timeit_util import time_decorator, to_date_time_from_series
@@ -73,7 +72,7 @@ def sub_set_of_year(df: pd.DataFrame, year: str = '2016'):
     return df.query(f'year=={year}')
 
 
-def left_join_vios(ins: pandas.DataFrame, vios: pandas.DataFrame):
+def left_join_vios(ins: pd.DataFrame, vios: pd.DataFrame):
     merge = ins.merge(vios, left_on=['business_id', 'timestamp'], right_on=['business_id', 'timestamp'], how='left')
     return merge
 
