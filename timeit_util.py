@@ -2,6 +2,15 @@ import timeit
 import pandas as pd
 from functools import wraps
 
+date_format = '%Y%m%d'
+
+
+def to_date_time_from_series(series: pd.Series, column: str = 'date'):
+    dates = pd.to_datetime(series[column], format=date_format)
+    years = dates.dt.year
+    dayofweek = dates.dt.dayofweek
+    return series.assign(timestamp=dates, year=years, dayofweek=dayofweek)
+
 
 def time_decorator(func):
     @wraps(func)
@@ -27,7 +36,8 @@ def cal_decade_using_vectorized_operators(dataset):
 
 
 def decade(year):
-    return year //10 *10
+    return year // 10 * 10
+
 
 @time_decorator
 def cal_decade_using_apply_function(dataset):
