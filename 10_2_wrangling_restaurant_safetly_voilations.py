@@ -11,8 +11,6 @@ bus: pd.DataFrame = None
 insp: pd.DataFrame = None
 viol: pd.DataFrame = None
 
-businesspath = None
-
 
 @time_decorator
 def read_files_for_wrangling(path: Path):
@@ -80,6 +78,12 @@ def left_join_vios(ins: pandas.DataFrame, vios: pandas.DataFrame):
     return merge
 
 
+def zero_vios_for_perfect_score(df):
+    copy_df = df.copy()
+    copy_df.loc[copy_df['score'] == 100, 'noOfViol'] = 0
+    return copy_df
+
+
 if __name__ == '__main__':
     read_files_for_wrangling(Path('sources'))
     check_granularity_business()
@@ -87,8 +91,14 @@ if __name__ == '__main__':
     violations = check_granularity_violations().pipe(sub_set_of_year)
     noOfViolationsForBusiness = violations.groupby(['business_id', 'timestamp']).size().reset_index().rename(
         columns={0: 'noOfViol'})
-    insp_merge_viol=inspections.merge(noOfViolationsForBusiness, left_on=['business_id', 'timestamp'],
-                      right_on=['business_id', 'timestamp'], how='left')
-    print("aggregating violations with inspections\n", insp_merge_viol)
+    insp_merge_viol_2016 = inspections.merge(noOfViolationsForBusiness, left_on=['business_id', 'timestamp'],
+                                             right_on=['business_id', 'timestamp'], how='left')
+    print("aggregating violations with inspections\n", insp_merge_viol_2016)
 
-    print("no fo violation is null for year 2016:",insp_merge_viol['noOfViol'].isnull().sum())
+    print("no fo violation is null for year 2016:", insp_merge_viol_2016['noOfViol'].isnull().sum())
+    '''set check score==100 then no of violations is NaN i.e there is no violation for the business score= 100 so sum 
+    is NaN, lets set noOfViol= 0'''
+    zeroViosScore = insp_merge_viol_2016.pipe(zero_vios_for_perfect_score)
+    print("\n",zeroViosScore)
+
+    print(zeroViosScore['noOfViol'].isnull().sum())  #
