@@ -4,6 +4,7 @@ import pandas as pd
 import chardet
 from timeit_util import time_decorator
 
+
 @time_decorator
 def examine_file(param):
     line = "{:<20}{}".format
@@ -29,7 +30,7 @@ def examine_file(param):
 
     line2 = '{:}\n{}\n{}'.format
     avg_ = dataframe[dataframe['Avg'] < 0]
-    print(line2('Co2 average dataframe below 0', avg_,avg_.__class__.__name__))
+    print(line2('Co2 average dataframe below 0', avg_, avg_.__class__.__name__))
 
 
 def read_from_text_into_dataframe(filename):

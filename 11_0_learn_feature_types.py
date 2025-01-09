@@ -1,6 +1,11 @@
+import numpy as np
 import pandas as pd
 from pathlib import Path
 import os
+import plotly.express as px
+
+from scipy.stats import gaussian_kde
+
 
 
 def read_dataS_source(path: Path):
@@ -58,4 +63,11 @@ dtypes: float64(8), object(4)
 memory usage: 16.3+ KB'''
     dogs.info()
     #general_stats()
-    relabel_categories(dogs)
+    #relabel_categories(dogs)
+
+    fig = px.histogram(dogs, x="longevity", marginal="rug", nbins=20,
+                       histnorm='percent', width=450, height=350,
+                       labels={'longevity': 'Typical lifespan (yr)'})
+
+    # Show the chart
+    fig.show()
