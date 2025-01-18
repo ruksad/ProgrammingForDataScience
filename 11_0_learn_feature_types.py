@@ -7,7 +7,6 @@ import plotly.express as px
 from scipy.stats import gaussian_kde
 
 
-
 def read_dataS_source(path: Path):
     return pd.read_csv(os.path.join(path, '11_akc.csv'))
 
@@ -29,9 +28,9 @@ def general_stats():
 
 def relabel_categories(dogs=None):
     ''' we will relabel children to kids into low, medium and high '''
-    kids = {3:'Low', 2: 'Medium', 1: 'High'}
-    dogs= dogs.assign(kids=dogs['children'].replace(kids))
-    print(dogs.loc[:,["breed", "group", "longevity", "purchase_price","score","kids"]])
+    kids = {3: 'Low', 2: 'Medium', 1: 'High'}
+    dogs = dogs.assign(kids=dogs['children'].replace(kids))
+    print(dogs.loc[:, ["breed", "group", "longevity", "purchase_price", "score", "kids"]])
     #dogs = dogs.drop(["purchase_price", "grooming", "group", "size", "weight", "height", "repetition"],axis=1)
     #print(dogs.loc[167:168])
 
