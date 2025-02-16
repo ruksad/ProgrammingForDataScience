@@ -9,7 +9,7 @@ def sample_from_seven_distinct_letters():
 
 
 def permutation_of_drawing_marbles_from_sample(sample):
-    all_perms = ["".join(perm) for perm in permutations(sample)]
+    all_perms = ["".join(perm) for perm in permutations("ABCDEFG",3)]
     print(all_perms)
     print(f"Perms length {len(all_perms)} of sample {sample}")
 
